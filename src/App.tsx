@@ -22,10 +22,20 @@ function App() {
   );
 }
 
+type data = {
+  text: string;
+}
+
+type ChatMessageType = {
+  message: {
+    text: string
+  };
+}
+
 function ChatRoom() {
   const dummy: any = useRef();
   const messagesRef = firebase.database().ref("chat");
-  let [data, setData]: any[] = useState([]);
+  let [data, setData]: any = useState<data[]>([]);
 
   useEffect(() => {
     messagesRef.on("value", (res) => {
@@ -55,7 +65,7 @@ function ChatRoom() {
     <>
       <main>
         {data !== "" &&
-          data.map((msg: any, i: number) => <ChatMessage key={i} message={msg} />)}
+          data.map((msg: data, i: number) => <ChatMessage key={i} message={msg} />)}
 
         <span ref={dummy}></span>
       </main>
@@ -75,7 +85,7 @@ function ChatRoom() {
   );
 }
 
-function ChatMessage(props: any) {
+function ChatMessage(props: ChatMessageType) {
   const { text } = props.message;
 
   return (
