@@ -32,10 +32,6 @@ type ChatMessageType = {
   };
 }
 
-type sendMessageType = {
-  preventDefault: Function
-}
-
 function ChatRoom() {
   const dummy: any = useRef();
   const messagesRef = firebase.database().ref("chat");
@@ -54,7 +50,7 @@ function ChatRoom() {
 
   const [formValue, setFormValue] = useState("");
 
-  const sendMessage = (e: sendMessageType) => {
+  const sendMessage = (e:  React.FormEvent) => {
     e.preventDefault();
 
     messagesRef.push({
