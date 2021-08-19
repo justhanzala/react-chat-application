@@ -4,7 +4,7 @@ import store from "./redux/index";
 import slice from "./redux/counter/slice";
 
 const Counters = () => {
-    const countersState = useSelector((state: RootStateOrAny) => state?.counterState);
+    const countersState = useSelector((state: RootStateOrAny) => state.countersState);
     const { dispatch } = store;
 
     return (
