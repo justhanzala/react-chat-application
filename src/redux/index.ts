@@ -9,4 +9,6 @@ const store = configureStore({
   middleware,
 });
 
+export type store = typeof store;
+export type dispatch = typeof store.dispatch;
 export default store;

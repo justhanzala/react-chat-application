@@ -1,10 +1,10 @@
 import React from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
-import store from "./redux";
+import store from "./redux/index";
 import slice from "./redux/counter/slice";
 
 const Counters = () => {
-    const { countersState } = useSelector((state: RootStateOrAny) => state);
+    const countersState = useSelector((state: RootStateOrAny) => state?.counterState);
     const { dispatch } = store;
 
     return (
