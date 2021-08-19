@@ -1,36 +1,41 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 import firebase from "./firebase";
+import Counters from "./Counters";
+import { Route, BrowserRouter } from "react-router-dom";
 
 function App() {
   useEffect(() => {
     const msg = firebase.messaging();
-    msg.requestPermission().then(() => {
-      return msg.getToken()
-    }).then((token) => {
-      console.warn("token======", token)
-    })
+    msg
+      .requestPermission()
+      .then(() => {
+        return msg.getToken();
+      })
+      .then((token) => {
+        console.warn("token======", token);
+      });
   }, []);
 
   return (
     <div className="App">
-      <header>
-        <h1>Chat Application</h1>
-      </header>
-      <ChatRoom />
+      <BrowserRouter>
+        <Route exact path="/" component={ChatRoom} />
+        <Route exact path="/Counters" component={Counters} />
+      </BrowserRouter>
     </div>
   );
 }
 
 type data = {
   text: string;
-}
+};
 
 type ChatMessageType = {
   message: {
-    text: string
+    text: string;
   };
-}
+};
 
 function ChatRoom() {
   const dummy: any = useRef();
@@ -41,16 +46,16 @@ function ChatRoom() {
     messagesRef.on("value", (res) => {
       const values = res.val();
       const tempArr = [];
-      for(let id in values) {
-        tempArr.push(values[id])
+      for (let id in values) {
+        tempArr.push(values[id]);
       }
-      setData(tempArr)
-    })
+      setData(tempArr);
+    });
   }, []);
 
   const [formValue, setFormValue] = useState("");
 
-  const sendMessage = (e:  React.FormEvent) => {
+  const sendMessage = (e: React.FormEvent) => {
     e.preventDefault();
 
     messagesRef.push({
@@ -63,9 +68,14 @@ function ChatRoom() {
 
   return (
     <>
+      <header>
+        <h1>Chat Application</h1>
+      </header>
       <main>
         {data !== "" &&
-          data.map((msg: data, i: number) => <ChatMessage key={i} message={msg} />)}
+          data.map((msg: data, i: number) => (
+            <ChatMessage key={i} message={msg} />
+          ))}
 
         <span ref={dummy}></span>
       </main>
