@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 import firebase from "./firebase";
-import Counters from "./Counters";
+import Counters from "./components/Counters";
 import { Route, BrowserRouter } from "react-router-dom";
 
 function App() {
